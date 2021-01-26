@@ -182,7 +182,7 @@ def not_found(error):
         }), 404
 
 @app.errorhandler(401)
-def not_found(error):
+def unauthorized(error):
     return jsonify({
         "success": False, 
         "error": 401,
@@ -222,7 +222,13 @@ def method_not_allowed(error):
         }), 405
 
 
-
+@app.errorhandler(AuthError)
+def authentification_failed(ex):
+    return jsonify({
+        "success": False,
+        "error": AuthError.status_code,
+        "message": ex.error['code']
+                    }), 401
 '''
 @TODO implement error handlers using the @app.errorhandler(error) decorator
     each error handler should return (with approprate messages):
