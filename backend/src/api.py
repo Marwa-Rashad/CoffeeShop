@@ -226,7 +226,7 @@ def method_not_allowed(error):
 def authentification_failed(ex):
     return jsonify({
         "success": False,
-        "error": AuthError.status_code,
+        "error": ex.status_code,
         "message": ex.error['code']
                     }), 401
 '''
